@@ -13,7 +13,7 @@ https://filedn.com/lv1UQc8ijkEXzTgOaCNTCbQ/Reproducible%20Research/TCFD/TCFD%20D
 ## Compile "evLaneCAD"
 Copy the project and source code from the "code\evLaneCAD" folder. Open the project to view the list of header files and source files. After configuring the required OpenCV include directories, library directories, and linking the necessary libraries, you can compile the project.
 ## Execute "evLaneCAD"
-After successful compilation, the executable file "evLaneCAD.exe" can be found in the "01-Source Code\evLaneCAD\Release" directory. The system must be launched from the Command Prompt using the following syntax:
+After successful compilation, the executable file "evLaneCAD.exe" can be found in the "code\evLaneCAD\Release" directory. The system must be launched from the Command Prompt using the following syntax:
 `evLaneCAD.exe [Parameter 1] [Parameter 2] [Parameter 3]`
 ### Parameter 1 – Input file name. For example, if the file name is "abc.avi", simply enter "abc".
 ### Parameter 2 – Specifies whether to display the processing video. The valid values are 0 or 1:

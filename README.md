@@ -15,11 +15,11 @@ Copy the project and source code from the "01-Source Code\evLaneCAD" folder. Ope
 ## Execute "evLaneCAD"
 After successful compilation, the executable file "evLaneCAD.exe" can be found in the "01-Source Code\evLaneCAD\Release" directory. The system must be launched from the Command Prompt using the following syntax:
 `evLaneCAD.exe [Parameter 1] [Parameter 2] [Parameter 3]`
-# Parameter 1 – Input file name. For example, if the file name is "abc.avi", simply enter "abc".
-# Parameter 2 – Specifies whether to display the processing video. The valid values are 0 or 1:
+### Parameter 1 – Input file name. For example, if the file name is "abc.avi", simply enter "abc".
+### Parameter 2 – Specifies whether to display the processing video. The valid values are 0 or 1:
 0: Do not display the processing video.
 1: Display the processing video. The current detection status is indicated by a green, yellow, or red bounding box.
-# Parameter 3 – Sensitivity of the camera anomaly detection. The valid range is 1–10:
+### Parameter 3 – Sensitivity of the camera anomaly detection. The valid range is 1–10:
 1: Highest sensitivity
 7: Default value
 10: Lowest sensitivity

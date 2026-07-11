@@ -1,5 +1,5 @@
 # TCFD
-TCFD is an algorithm to detect abnormal of traffic CCTV. This implementation provides comprehensive code, library and header.
+TCFD(Traffic Camera Fault Detection) is an algorithm to detect the anomaly of traffic CCTV camera. This repo provides code, library and header.
 <img width="1127" height="332" alt="image" src="https://github.com/user-attachments/assets/af8432bf-38b5-4d69-94a2-f77a5e45fd67" />
 ## Repository requirements
 Before running this program, make sure your system has the following tools installed:
@@ -11,7 +11,7 @@ Before running this program, make sure your system has the following tools insta
 Dataset was uploaded at following link include TCFD Daytime, TCFD Nighttime and groundtruth.
 https://filedn.com/lv1UQc8ijkEXzTgOaCNTCbQ/Reproducible%20Research/TCFD/TCFD%20Dataset/
 ## Compile "evLaneCAD"
-Copy the project and source code from the "01-Source Code\evLaneCAD" folder. Open the project to view the list of header files and source files. After configuring the required OpenCV include directories, library directories, and linking the necessary libraries, you can compile the project.
+Copy the project and source code from the "code\evLaneCAD" folder. Open the project to view the list of header files and source files. After configuring the required OpenCV include directories, library directories, and linking the necessary libraries, you can compile the project.
 ## Execute "evLaneCAD"
 After successful compilation, the executable file "evLaneCAD.exe" can be found in the "01-Source Code\evLaneCAD\Release" directory. The system must be launched from the Command Prompt using the following syntax:
 `evLaneCAD.exe [Parameter 1] [Parameter 2] [Parameter 3]`

@@ -1,0 +1,108 @@
+#ifndef _EV_ONLINECAD_H_
+#define _EV_ONLINECAD_H_
+
+//#ifndef EV_CAD_DEBUG
+//#define	EV_CAD_DEBUG 0
+//#endif
+
+#include "evkcore.h"
+#include <cv.h>
+#include <highgui.h>
+#include <stdio.h>
+
+//enum status{正常、維持、警報};
+enum status{Normal, AtoNWait, NtoAWait, Alarm};
+
+typedef struct _iEvKalman{
+
+	float A[4] ;			  //A矩陣 為{1,1;0,1}的 2*2 矩陣
+	CvRNG rng ;				  //產生隨機值用
+	CvMat* process_noise ;	  //過程雜訊
+	CvMat* state ;			  //暫存狀態的矩陣
+	CvMat* measurement ;	  //測量值
+	CvKalman* kalman ;		  //更新+預測
+	const CvMat* prediction ; //預測值
+
+	double now; //暫存
+
+}iEvKalman;
+
+typedef struct _iEvFeature{
+
+	double dNow;		//測量值
+	double dPredictNow; //預測值(濾波)
+
+}iEvFeature;
+
+typedef struct _EvOnlineCADParam{
+	int ievOnlineCADParamNum ;	//參數號碼
+	int iCountLimit;			//計數器上限
+
+	/*影像品質閥值參數*/
+	double dSdvThres;	   //標準差上限
+	double dEdgeTres;	   //邊緣強度上限
+	double dLocalSdvThres; //區域標準差上限
+
+	/*Kalman Filter參數*/
+	double dProcessNoiseSigma;		//過程雜訊
+	double dMeasurementNoiseSigma;	//測量雜訊
+
+	/*cvGoodFeaturesToTrack參數*/
+	int iCornerMaxNumber;
+	double dQualityLevel;
+	double dMinDistance;
+
+	/*cvCalcOpticalFlowPyrLK參數*/
+	CvSize sizeWinLK; /*Window Size*/
+	int iLevel; /*Pyramid Level*/
+
+	/*ievHOOFMeasurement參數*/
+	double dOpticalFlowLengthThreshold;
+}EvOnlineCADParam;
+
+typedef struct _EvOnlineCAD{	
+	IplImage* imgGray;		  //放灰階用
+	IplImage* imgCanny;		  //放邊緣用
+	IplImage* imgT[3];		  //Debug用
+	IplImage* imgCorner;	  //Debug用
+	IplImage* imgOpticalFlow; //Debug用
+	IplImage* imgHOOF;		  //Debug用
+	/*cvGoodFeaturesToTrack記憶體空間*/
+	IplImage *imgEig;
+	IplImage *imgTemp;
+	CvPoint2D32f *point2D32fCurrentCornerSet;  
+	int iCornerMaxNumber;
+	/*cvCalcOpticalFlowPyrLK記憶體空間*/
+	IplImage *imgPreviou;
+	IplImage *imgPrevPyr;
+	IplImage *imgCurrPyr;
+	CvPoint2D32f *point2D32fPreviouCornerSet;
+	CvPoint2D32f *point2D32fCurrentOpticalFlowSet;  
+	int iPreviouCornerMaxNumber;
+	char *status;  
+	/*ievHOOFMeasurement記憶體空間*/
+	int iarrHistMod[2];
+	int iHOOFDistributionType;
+
+	iEvFeature* sMean;
+	iEvFeature* sSdv;
+	iEvFeature* sEdge;
+	iEvFeature* sLsdv;
+
+	iEvKalman* sKalman[11];	//Kalman用
+
+	int iFrameCount;					
+	int iCondCount; //計數器
+	int Judgement;	//判斷的狀況
+
+	enum status now ; //狀態 有Normal,Wait,Alarm
+	enum status before ;
+	EvOnlineCADParam sOnlineCADParam; //做判斷用
+}EvOnlineCAD;
+
+int evSetOnlineCAD(EvOnlineCAD* sOnlineCAD, EvOnlineCADParam* sOnlineCADParam, int ievOnlineCADParamNum);
+EvOnlineCAD* evCreateOnlineCAD(IplImage* imgSrc, EvOnlineCADParam* sParam);
+int evDoOnlineCAD(IplImage *imgSrc, EvOnlineCAD *sOnlineCAD);
+void evReleaseOnlineCAD(EvOnlineCAD *sOnlineCAD);
+
+#endif //_EV_ONLINECAD_H_
